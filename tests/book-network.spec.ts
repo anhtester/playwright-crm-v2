@@ -6,22 +6,20 @@ import { type BookList } from '../utils/book-data';
 const BOOK_LIST_API = '**/api/book?*';
 
 test.describe('Book UI - theo dõi và giả lập API danh sách sách', () => {
-  test('Đọc response thật của API danh sách, thẻ sách đầu tiên khớp dữ liệu', async ({ page, bookListPage }) => {
-    // Đăng ký chờ TRƯỚC khi mở trang, nếu không response có thể về trước khi kịp chờ
-    const responsePromise = page.waitForResponse(
-      (response) => response.url().includes('/api/book?') && response.request().method() === 'GET',
-    );
+  test('Đọc response thật của API danh sách, thẻ sách đầu tiên khớp dữ liệu', async ({ bookListPage }) => {
+    // Đăng ký chờ TRƯỚC khi mở trang, nếu không response có thể về trước khi kịp chờ.
+    // Trang gọi /api/book hai lần (3 cuốn nổi bật và lưới 20 cuốn): chờ đúng request của lưới
+    const responsePromise = bookListPage.waitForGridResponse();
     await bookListPage.goto();
     const response = await responsePromise;
 
     expect(response.status()).toBe(200);
-    // Kiểm luôn tham số trang gửi lên: mỗi lần lấy 36 cuốn, trang 1
-    const params = new URL(response.url()).searchParams;
-    expect(params.get('limit')).toBe('36');
-    expect(params.get('page')).toBe('1');
+    expect(new URL(response.url()).searchParams.get('page')).toBe('1');
 
     const body: BookList = await response.json();
     await expect(bookListPage.bookTitle(body.list[0].name)).toBeVisible();
+    // Tổng số sách trên giao diện khớp với pagination.total của API
+    await expect(bookListPage.results).toContainText(`of ${body.pagination.total} books`);
   });
 
   test('Giả lập danh sách 2 cuốn: trang hiện đúng 2 cuốn đó', async ({ page, bookListPage }) => {
@@ -54,7 +52,8 @@ test.describe('Book UI - theo dõi và giả lập API danh sách sách', () => 
 
     await bookListPage.goto();
 
-    await expect(bookListPage.notifications.getByText('Lỗi giả lập từ test')).toBeVisible();
+    // Trang gọi /api/book hai lần, cả hai đều nhận lỗi 500 nên có hai thông báo giống nhau
+    await expect(bookListPage.notifications.getByText('Lỗi giả lập từ test').first()).toBeVisible();
     await expect(bookListPage.noData).toBeVisible();
   });
 
@@ -94,20 +93,20 @@ test.describe('Book - kết hợp API và UI', () => {
     await bookDetailPage.open(body.slug);
 
     await bookDetailPage.expectLoaded();
-    await expect(bookDetailPage.heading(body.name)).toBeVisible();
-    await expect(bookDetailPage.heading('123.000 ₫')).toBeVisible();
+    await expect(bookDetailPage.name).toHaveText(body.name);
+    await expect(bookDetailPage.currentPrice).toHaveText('123.000 ₫');
   });
 
   test('Sửa giá qua API, mở lại trang thì thấy giá mới', async ({ page, createBook, bookApi, bookDetailPage }) => {
     const { body, saved } = await createBook({ price: 100_000 });
     await bookDetailPage.open(body.slug);
-    await expect(bookDetailPage.heading('100.000 ₫')).toBeVisible();
+    await expect(bookDetailPage.currentPrice).toHaveText('100.000 ₫');
 
     // Đổi dữ liệu ở phía server bằng API, rồi kiểm giao diện phản ánh đúng
     const updated = await bookApi.update(saved.id, { ...body, price: 250_000 });
     expect(updated.status).toBe(200);
     await page.reload();
 
-    await expect(bookDetailPage.heading('250.000 ₫')).toBeVisible();
+    await expect(bookDetailPage.currentPrice).toHaveText('250.000 ₫');
   });
 });

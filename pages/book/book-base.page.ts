@@ -10,11 +10,10 @@ export class BookBasePage extends BasePage {
 
   constructor(page: Page, path: string, headingName: string) {
     super(page, path, env.bookURL); // Book ở tên miền khác nên truyền địa chỉ gốc đầy đủ
-    // Trang User có 2 vùng navigation (menu và phân trang) nên phải lọc ra đúng menu
-    this.menu = new SideMenu(
-      page.getByRole('navigation').filter({ has: page.getByRole('link', { name: 'Dashboard' }) }),
-    );
-    this.heading = page.getByRole('heading', { name: headingName, level: 4 });
+    // Giao diện mới gắn data-testid cho menu trái: ổn định hơn việc lọc theo vai trò navigation
+    this.menu = new SideMenu(page.getByTestId('nav-desktop'));
+    // Giao diện mới: tiêu đề trang là heading cấp 1 (bản cũ là cấp 4)
+    this.heading = page.getByRole('heading', { name: headingName, level: 1 });
   }
 
   /** Đúng URL và đã thấy tiêu đề của trang */
