@@ -3,7 +3,7 @@ import { buildBook, buildCategoryName } from '../../utils/factories';
 
 // Bản viết lại của bài trước: gọi API qua client (bookApi), dữ liệu tạo qua fixture createBook (tự dọn)
 test.describe('Book API - tạo, sửa, xoá sách (POST, PATCH, DELETE)', () => {
-  test('BK_BOOK_TC_066 - Tạo sách rồi đọc lại đúng dữ liệu', async ({ bookApi, createBook }) => {
+  test('BK_BOOK_TC_066 - Tạo sách rồi đọc lại đúng dữ liệu', { tag: '@smoke' }, async ({ bookApi, createBook }) => {
     const { body, saved } = await createBook();
 
     const { status, body: book } = await bookApi.get(saved.id);

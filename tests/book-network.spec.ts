@@ -6,7 +6,7 @@ import { type BookList } from '../utils/book-data';
 const BOOK_LIST_API = '**/api/book?*';
 
 test.describe('Book UI - theo dõi và giả lập API danh sách sách', () => {
-  test('Đọc response thật của API danh sách, thẻ sách đầu tiên khớp dữ liệu', async ({ bookListPage }) => {
+  test('Đọc response thật của API danh sách, thẻ sách đầu tiên khớp dữ liệu', { tag: '@smoke' }, async ({ bookListPage }) => {
     // Đăng ký chờ TRƯỚC khi mở trang, nếu không response có thể về trước khi kịp chờ.
     // Trang gọi /api/book hai lần (3 cuốn nổi bật và lưới 20 cuốn): chờ đúng request của lưới
     const responsePromise = bookListPage.waitForGridResponse();

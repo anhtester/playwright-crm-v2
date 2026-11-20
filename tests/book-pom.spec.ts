@@ -1,7 +1,7 @@
 import { test, expect } from '../fixtures';
 
 test.describe('Book demo - Menu và bảng dữ liệu qua Component Object', () => {
-  test('Menu trái có đủ 6 mục và đưa tới đúng trang', async ({ userPage, promotionPage }) => {
+  test('Menu trái có đủ 6 mục và đưa tới đúng trang', { tag: '@smoke' }, async ({ userPage, promotionPage }) => {
     await userPage.goto();
     await userPage.expectLoaded();
     await expect(userPage.menu.links)
@@ -27,7 +27,6 @@ test.describe('Book demo - Menu và bảng dữ liệu qua Component Object', ()
     await expect(promotionPage.table.rows).not.toHaveCount(0); // chờ dữ liệu về
 
     const startDates = await promotionPage.table.columnValues('Start');
-    console.log(`Số dòng: ${startDates.length} | Ô Start đầu tiên: ${JSON.stringify(startDates[0])}`);
     for (const value of startDates) {
       expect(value, 'Cột Start phải bắt đầu bằng ngày dạng "11 Nov 2026"').toMatch(/^\d{2} [A-Z][a-z]{2} \d{4}/);
     }

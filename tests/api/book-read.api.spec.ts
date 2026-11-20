@@ -7,7 +7,7 @@ import { type Book } from '../../utils/book-data';
 const OLDEST_BOOK = { limit: 1, sort: 'createdAt', sortBy: 'asc' };
 
 test.describe('Book API - đọc danh sách và chi tiết sách (GET)', () => {
-  test('BK_BOOK_TC_090 - Lấy danh sách sách mặc định 10 cuốn, trang 1', async ({ request }) => {
+  test('BK_BOOK_TC_090 - Lấy danh sách sách mặc định 10 cuốn, trang 1', { tag: '@smoke' }, async ({ request }) => {
     const response = await request.get('/api/book');
 
     expect(response.status()).toBe(200);
@@ -26,7 +26,7 @@ test.describe('Book API - đọc danh sách và chi tiết sách (GET)', () => {
 
     const response = await request.get(`/api/book/${first.id}`);
 
-    expect(response.ok()).toBeTruthy();
+    await expect(response).toBeOK();
     const book: Book = await response.json();
     // Body chi tiết không có slug, nên so các trường cả hai bên cùng có
     expect(book.id).toBe(first.id);

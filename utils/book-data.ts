@@ -45,11 +45,15 @@ export interface BookList {
   pagination: { total: number; totalPage: number; currentPage: number; lengthData: number };
 }
 
-/** Tham số lọc của GET /api/book (đi trên URL dạng ?limit=5&page=2) */
-export interface BookQuery {
+/**
+ * Tham số lọc của GET /api/book (đi trên URL dạng ?limit=5&page=2).
+ * Viết bằng `type`, không dùng `interface`: params của Playwright nhận Record<string, ...>,
+ * interface không gán được vào Record (tsc báo TS2322), type thì được
+ */
+export type BookQuery = {
   limit?: number;
   page?: number;
   search?: string;
   sort?: 'name' | 'price' | 'createdAt' | 'updatedAt' | 'viewCount';
   sortBy?: 'asc' | 'desc';
-}
+};

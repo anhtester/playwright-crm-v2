@@ -1,0 +1,19 @@
+{
+  // Chỉ dùng để KIỂM KIỂU (npm run typecheck). Playwright tự chạy file .ts, không cần biên dịch ra .js.
+  // "dom": code trong page.evaluate() chạy trên trình duyệt, có document, HTMLInputElement
+  "compilerOptions": {
+    "target": "es2022",
+    "lib": ["es2023", "dom"],
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "types": ["node"],
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["playwright.config.ts", "tests/**/*.ts", "pages/**/*.ts", "components/**/*.ts",
+    "fixtures/**/*.ts", "api/**/*.ts", "utils/**/*.ts"]
+}

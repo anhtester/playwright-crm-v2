@@ -10,6 +10,10 @@
   KHÔNG tăng timeout chung của cả project.
 - `retries` chỉ bật trên CI (`process.env.CI ? 2 : 0`). Ở máy mình test đỏ phải đỏ ngay để còn sửa.
 - Giữ `forbidOnly: !!process.env.CI`. Không commit `test.only`.
+- Kiểm kiểu bằng `npm run typecheck` (`tsc --noEmit`, đọc `tsconfig.json` ở gốc). Playwright chạy file `.ts`
+  mà KHÔNG kiểm kiểu, nên sửa code xong phải chạy lệnh này. KHÔNG thêm `// @ts-ignore`, `as any` để qua lỗi.
+- Tag `@smoke`: chỉ 1–2 test đường chính của mỗi khu (trang đăng nhập CRM, khu khách hàng, Customers,
+  Book API, Book UI). Chạy bằng `npm run test:smoke`. KHÔNG gắn `@smoke` cho mọi test mới.
 
 ## Projects
 - Ba project trình duyệt máy tính: `chromium`, `firefox`, `webkit`, dùng `devices[...]` có sẵn.
@@ -75,6 +79,7 @@
 - Workflow duy nhất: `.github/workflows/playwright.yml`. Trigger: `push` lên `main`, `pull_request`,
   `schedule` (có `timezone: 'Asia/Ho_Chi_Minh'`, thiếu dòng này thì cron tính theo UTC), `workflow_dispatch`.
 - Cài bằng `npm ci` (KHÔNG `npm install`), Node 24 qua `actions/setup-node` có `cache: npm`.
+  Ngay sau `npm ci` là bước `npm run typecheck`, trước khi cài trình duyệt.
   Chỉ cài trình duyệt CI dùng: `npx playwright install --with-deps chromium`.
 - Biến thường (`ENV_NAME`, `CRM_URL`, `BOOK_URL`, `WORKERS`) ghi ở `env:` của job. Tài khoản lấy từ
   `${{ secrets.TEN_BIEN }}`, tên trùng tên biến trong `.env.example`. KHÔNG viết giá trị mật khẩu trong YAML,

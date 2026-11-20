@@ -50,6 +50,10 @@ jobs:
       - name: Cài thư viện
         run: npm ci
 
+      # Playwright chạy file .ts mà không kiểm kiểu: sai kiểu thì dừng ở đây, chưa tốn công cài trình duyệt
+      - name: Kiểm kiểu TypeScript
+        run: npm run typecheck
+
       # Chỉ cài Chromium (và thư viện hệ điều hành nó cần) vì CI chỉ chạy project chromium
       - name: Cài trình duyệt Chromium
         run: npx playwright install --with-deps chromium

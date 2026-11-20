@@ -119,7 +119,6 @@ test.describe('CRM - Khu khách hàng: đăng nhập, quên mật khẩu, Knowle
 
       await categoryPage.expectLoaded();
       await expect(page).toHaveTitle(firstCategory);
-      console.log(`Danh mục "${firstCategory}" | ${categoryPage.path} | số bài viết: ${await categoryPage.articleLinks.count()}`);
     });
 
   test('CRM_CLIENT_TC_010 - Ba trang công khai không có lỗi JavaScript',
