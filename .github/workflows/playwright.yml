@@ -19,6 +19,7 @@ concurrency:
 
 jobs:
   test:
+    name: Test CRM (Chromium)
     runs-on: ubuntu-latest
     # Treo quá 30 phút thì GitHub dừng job (mặc định tới 360 phút)
     timeout-minutes: 30
@@ -36,18 +37,22 @@ jobs:
       CRM_CUSTOMER_EMAIL: ${{ secrets.CRM_CUSTOMER_EMAIL }}
       CRM_CUSTOMER_PASSWORD: ${{ secrets.CRM_CUSTOMER_PASSWORD }}
     steps:
-      - uses: actions/checkout@v7
+      - name: Lấy code của repo
+        uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v7
+      - name: Cài Node.js 24
+        uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
 
       # npm ci cài đúng phiên bản trong package-lock.json
-      - run: npm ci
+      - name: Cài thư viện
+        run: npm ci
 
       # Chỉ cài Chromium (và thư viện hệ điều hành nó cần) vì CI chỉ chạy project chromium
-      - run: npx playwright install --with-deps chromium
+      - name: Cài trình duyệt Chromium
+        run: npx playwright install --with-deps chromium
 
       # Đăng nhập CRM 3 vai trò, lưu phiên ra playwright/.auth/.
       # --reporter=list: bước này KHÔNG ghi HTML Report, Allure (các bước Fill "..." có mật khẩu)
@@ -64,14 +69,16 @@ jobs:
         if: ${{ !cancelled() && hashFiles('allure-results/**') != '' }}
         run: npm run allure:generate
 
-      - uses: actions/upload-artifact@v7
+      - name: Lưu HTML Report
+        uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 14
 
-      - uses: actions/upload-artifact@v7
+      - name: Lưu Allure Report
+        uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: allure-report
