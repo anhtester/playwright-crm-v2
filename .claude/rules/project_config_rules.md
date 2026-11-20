@@ -82,6 +82,7 @@
 - Đăng nhập chạy ở bước riêng: `npx playwright test --project=setup --reporter=list` (không HTML Report,
   không Allure: các bước `Fill "..."` chứa mật khẩu). Bước test sau đó có `--no-deps`.
 - Project `setup`, `api-setup` có `trace: 'off'`, `screenshot: 'off'`, `video: 'off'`. KHÔNG upload `test-results/`.
+  KHÔNG thêm cờ `--trace` vào lệnh trên CI: cờ dòng lệnh thắng cả `trace: 'off'` của project.
 - Bước test KHÔNG gõ `--reporter=...` (ghi đè `reporter` của config, mất HTML Report và Allure).
 - Sinh và upload report có `if: ${{ !cancelled() }}`, `retention-days`. Repo public: ai cũng tải được artifact.
 - Book chưa chạy trên CI: `book.anhtester.com` còn bản cũ. Khi Book lên bản mới thì thêm `--project=api`
