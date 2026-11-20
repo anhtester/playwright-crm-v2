@@ -1,0 +1,1 @@
+File text dùng để kiểm tra Book từ chối loại file không cho phép.

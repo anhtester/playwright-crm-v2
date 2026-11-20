@@ -1,0 +1,43 @@
+{
+  "twoBooks": {
+    "list": [
+      {
+        "id": "mock-book-1",
+        "name": "Sách giả lập: Playwright căn bản",
+        "description": "Dữ liệu do test tự trả về, không có trên server.",
+        "slug": "sach-gia-lap-playwright-can-ban",
+        "categories": ["Công nghệ thông tin"],
+        "picture": [],
+        "auth": { "name": "Anh Tester", "email": "demo@example.com", "avatarUrl": "" },
+        "status": "AVAILABLE",
+        "createdAt": "2026-11-20T08:00:00.000Z",
+        "updatedAt": "2026-11-20T08:00:00.000Z",
+        "price": 123000,
+        "currentPrice": 123000,
+        "viewCount": 0,
+        "promotions": []
+      },
+      {
+        "id": "mock-book-2",
+        "name": "Sách giả lập: API Testing",
+        "description": "Cuốn thứ hai, giá có khuyến mãi để thấy giá gạch ngang.",
+        "slug": "sach-gia-lap-api-testing",
+        "categories": ["Công nghệ thông tin"],
+        "picture": [],
+        "auth": { "name": "Anh Tester", "email": "demo@example.com", "avatarUrl": "" },
+        "status": "AVAILABLE",
+        "createdAt": "2026-11-19T08:00:00.000Z",
+        "updatedAt": "2026-11-19T08:00:00.000Z",
+        "price": 200000,
+        "currentPrice": 150000,
+        "viewCount": 12,
+        "promotions": []
+      }
+    ],
+    "pagination": { "total": 2, "totalPage": 1, "currentPage": 1, "lengthData": 2 }
+  },
+  "empty": {
+    "list": [],
+    "pagination": { "total": 0, "totalPage": 0, "currentPage": 1, "lengthData": 0 }
+  }
+}

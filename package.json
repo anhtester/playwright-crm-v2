@@ -1,0 +1,32 @@
+{
+  "name": "playwright-crm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:setup": "playwright test --project=setup",
+    "test:chromium": "playwright test --project=chromium",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:dev": "cross-env TEST_ENV=dev playwright test",
+    "test:staging": "cross-env TEST_ENV=staging playwright test",
+    "report": "playwright show-report",
+    "allure:generate": "allure generate allure-results -o allure-report",
+    "allure:open": "allure open allure-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@faker-js/faker": "^10.6.0",
+    "@playwright/test": "^1.65.1",
+    "@types/node": "^24.19.2",
+    "allure": "^3.33.0",
+    "allure-playwright": "^3.15.0",
+    "cross-env": "^10.1.0",
+    "csv-parse": "^7.0.3",
+    "dotenv": "^18.0.10",
+    "exceljs": "^4.4.0"
+  }
+}

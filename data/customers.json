@@ -1,0 +1,14 @@
+{
+  "full": {
+    "company": "AT Auto Customer JSON",
+    "vat": "10",
+    "phone": "0123456789",
+    "website": "https://anhtester.com",
+    "address": "123 Test Street",
+    "city": "Ho Chi Minh",
+    "country": "Vietnam"
+  },
+  "minimal": {
+    "company": "AT Auto Customer JSON Minimal"
+  }
+}

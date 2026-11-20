@@ -1,0 +1,15 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+/allure-results/
+/allure-report/
+
+# File môi trường: chỉ commit file mẫu .env.example
+.env
+.env.*
+!.env.example

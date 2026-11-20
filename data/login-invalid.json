@@ -1,0 +1,44 @@
+[
+  {
+    "id": "CRM_LOGIN_TC_011-a",
+    "title": "Bỏ trống cả Email và Password",
+    "email": "",
+    "password": "",
+    "messages": ["The Email Address field is required.", "The Password field is required."]
+  },
+  {
+    "id": "CRM_LOGIN_TC_011-b",
+    "title": "Có Email, bỏ trống Password",
+    "email": "notexist_login@example.com",
+    "password": "",
+    "messages": ["The Password field is required."]
+  },
+  {
+    "id": "CRM_LOGIN_TC_011-c",
+    "title": "Có Password, bỏ trống Email",
+    "email": "",
+    "password": "Abc12345",
+    "messages": ["The Email Address field is required."]
+  },
+  {
+    "id": "CRM_LOGIN_TC_013",
+    "title": "Email không tồn tại",
+    "email": "notexist_login@example.com",
+    "password": "Abc12345",
+    "messages": ["Invalid email or password"]
+  },
+  {
+    "id": "CRM_LOGIN_TC_017",
+    "title": "Chuỗi SQL Injection ở ô Password",
+    "email": "notexist_login@example.com",
+    "password": "' OR '1'='1",
+    "messages": ["Invalid email or password"]
+  },
+  {
+    "id": "CRM_LOGIN_TC_018",
+    "title": "Mật khẩu có chữ tiếng Việt và emoji",
+    "email": "notexist_login@example.com",
+    "password": "MậtKhẩu😀123",
+    "messages": ["Invalid email or password"]
+  }
+]
