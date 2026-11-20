@@ -91,4 +91,6 @@
 - Bước test KHÔNG gõ `--reporter=...` (ghi đè `reporter` của config, mất HTML Report và Allure).
 - Sinh và upload report có `if: ${{ !cancelled() }}`, `retention-days`. Repo public: ai cũng tải được artifact.
 - Book chưa chạy trên CI: `book.anhtester.com` còn bản cũ. Khi Book lên bản mới thì thêm `--project=api`
-  và bỏ bộ lọc `crm-` ở bước test (bước đăng nhập thêm `--project=api-setup`).
+  và bỏ bộ lọc `tests/crm-` ở bước test (bước đăng nhập thêm `--project=api-setup`).
+- Bộ lọc file ở dòng lệnh so với CẢ đường dẫn tuyệt đối của file. Viết kèm thư mục (`tests/crm-`), KHÔNG viết
+  `crm-` trơn: trên runner đường dẫn có tên repo (`/home/runner/work/playwright-crm-v2/...`), `crm-` khớp mọi file.
