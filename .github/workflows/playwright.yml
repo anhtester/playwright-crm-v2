@@ -58,9 +58,10 @@ jobs:
       - name: Chạy test CRM trên Chromium
         run: npx playwright test crm- --project=chromium --no-deps
 
-      # !cancelled(): test đỏ vẫn sinh và upload report. Chỉ bỏ qua khi lượt chạy bị huỷ
+      # !cancelled(): test đỏ vẫn sinh và upload report. Chỉ bỏ qua khi lượt chạy bị huỷ.
+      # hashFiles: chưa có allure-results (đăng nhập đỏ, bước test không chạy) thì không sinh
       - name: Sinh Allure Report
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && hashFiles('allure-results/**') != '' }}
         run: npm run allure:generate
 
       - uses: actions/upload-artifact@v7
