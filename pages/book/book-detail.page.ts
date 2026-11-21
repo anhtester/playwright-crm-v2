@@ -11,12 +11,12 @@ export class BookDetailPage extends BasePage {
   constructor(page: Page) {
     super(page, '/book-management/detail', env.bookURL);
     this.backButton = page.getByRole('button', { name: 'Back' });
-    // Giao diện mới: tên sách còn lặp lại ở chỗ khác trong trang, nên lấy theo data-testid
+    // Tên sách còn lặp lại ở chỗ khác trong trang (đường dẫn phía trên, ảnh bìa), nên lấy theo data-testid
     this.name = page.getByTestId('book-detail-name');
     this.currentPrice = page.getByTestId('book-current-price');
   }
 
-  /** Mở chi tiết theo slug. Trang này không có menu trái nên không kế thừa BookBasePage */
+  /** Mở chi tiết theo slug. URL có slug và tiêu đề là tên sách (đổi theo từng cuốn) nên không kế thừa BookBasePage */
   async open(slug: string): Promise<void> {
     await this.page.goto(`${this.url}/${slug}`);
   }

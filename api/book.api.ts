@@ -20,9 +20,9 @@ export class BookApi extends BaseApi {
     return this.send('POST', '/api/book', { data: book });
   }
 
-  /** Book đặt lại các trường không gửi về mặc định, nên luôn truyền đủ body */
-  update(id: string, book: BookBody): Promise<ApiResult<Message>> {
-    return this.send('PATCH', `/api/book/${id}`, { data: book });
+  /** PATCH chỉ sửa các trường được gửi, trường không gửi giữ nguyên */
+  update(id: string, changes: Partial<BookBody>): Promise<ApiResult<Message>> {
+    return this.send('PATCH', `/api/book/${id}`, { data: changes });
   }
 
   remove(id: string): Promise<ApiResult<Message>> {

@@ -46,7 +46,7 @@
 - Tạo dữ liệu không qua fixture (danh mục, file) thì tự dọn trong `finally`.
 - Dữ liệu tạo mới có tiền tố `AT Auto` (`buildBook()`, `buildCategoryName()`). Kiểm theo `search` một mã riêng
   của test (`uniqueSuffix()`), không phụ thuộc dữ liệu của người khác.
-- POST sách luôn gửi `promotions: []` và PATCH luôn gửi đủ body: Book tự điền giá trị mặc định cho trường thiếu.
+- PATCH chỉ gửi trường cần đổi, rồi GET lại kiểm cả trường đã đổi lẫn một trường KHÔNG gửi (phải giữ nguyên).
 
 ## Network Interception (test giao diện)
 - Chặn hoặc giả lập request bằng `page.route(<pattern>, handler)` ĐẶT TRƯỚC `goto()`. Pattern viết thành hằng

@@ -28,8 +28,9 @@ test.describe('Book API - đọc danh sách và chi tiết sách (GET)', () => {
 
     await expect(response).toBeOK();
     const book: Book = await response.json();
-    // Body chi tiết không có slug, nên so các trường cả hai bên cùng có
+    // Body chi tiết khác body danh sách (picture, previewContent...), nên chỉ so các trường hai bên cùng nghĩa
     expect(book.id).toBe(first.id);
+    expect(book.slug).toBe(first.slug);
     expect(book.name).toBe(first.name);
     expect(book.price).toBe(first.price);
   });

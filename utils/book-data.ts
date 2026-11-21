@@ -9,7 +9,7 @@ export interface BookBody {
   status: BookStatus;
   categories: string[];
   price: number;
-  /** Luôn gửi mảng (có thể rỗng). Không gửi thì Book tự áp mọi khuyến mãi đang chạy vào giá bán */
+  /** Id các khuyến mãi áp cho sách. Test gửi mảng rỗng: giá bán (currentPrice) bằng giá gốc */
   promotions: string[];
 }
 
@@ -17,8 +17,7 @@ export interface BookBody {
 export interface Book {
   id: string;
   name: string;
-  /** Chỉ có trong body danh sách, body chi tiết không trả slug */
-  slug?: string;
+  slug: string;
   description: string;
   status: BookStatus;
   categories: string[];

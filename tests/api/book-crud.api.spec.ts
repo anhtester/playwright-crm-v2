@@ -18,7 +18,7 @@ test.describe('Book API - tạo, sửa, xoá sách (POST, PATCH, DELETE)', () =>
   });
 
   test('BK_BOOK_TC_102 - Tạo sách thành công trả 201 như Swagger khai báo', async ({ createBook }) => {
-    // Bản cũ trả 200 (bug, từng đánh dấu test.fail). Bản mới trả đúng 201 Created như Swagger nên bỏ test.fail
+    // Kiểm ĐÚNG mã 201 Created như Swagger khai. toBeOK() nhận mọi mã 2xx nên không bắt được server trả 200
 
     const { status } = await createBook();
 
@@ -27,15 +27,16 @@ test.describe('Book API - tạo, sửa, xoá sách (POST, PATCH, DELETE)', () =>
 
   test('BK_BOOK_TC_126 - Sửa giá và trạng thái được lưu', async ({ bookApi, createBook }) => {
     const { body, saved } = await createBook();
-    // Book đặt lại các trường KHÔNG gửi về mặc định, nên gửi đủ cả body
-    const updated = { ...body, price: body.price + 10_000, status: 'UNAVAILABLE' as const };
+    // PATCH chỉ gửi trường cần đổi. Trường không gửi phải giữ nguyên
+    const changes = { price: body.price + 10_000, status: 'UNAVAILABLE' as const };
 
-    const result = await bookApi.update(saved.id, updated);
+    const result = await bookApi.update(saved.id, changes);
 
     expect(result.status).toBe(200);
     const { body: book } = await bookApi.get(saved.id);
-    expect(book.price).toBe(updated.price);
+    expect(book.price).toBe(changes.price);
     expect(book.status).toBe('UNAVAILABLE');
+    expect(book.description).toBe(body.description);
   });
 
   test('BK_BOOK_TC_086 - Xoá sách, đọc lại thì 404', async ({ bookApi, createBook }) => {

@@ -39,7 +39,7 @@ test.describe('Book API - danh mục sách (POST, PUT, DELETE)', () => {
 
     try {
       const result = await categoryApi.create(name);
-      // Bản cũ trả 400. Bản mới trả 409 Conflict, đúng nghĩa "trùng dữ liệu đã có"
+      // 409 Conflict: tên trùng với danh mục đã có
       expect(result.status).toBe(409);
       expect(result.body.msg).toBe('Category already exists.');
     } finally {
