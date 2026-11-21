@@ -57,6 +57,8 @@ test.describe('Book API - tạo, sửa, xoá sách (POST, PATCH, DELETE)', () =>
 
   test('BK_BOOK_TC_071 - Tạo sách với categories rỗng bị từ chối 422', async ({ bookApi }) => {
     const { status, body } = await bookApi.create(buildBook('khong-dung', { categories: [] }));
+    // Đính kèm body lỗi vào report: người đọc report thấy server trả gì mà không phải chạy lại test
+    await test.info().attach('response-422', { body: JSON.stringify(body, null, 2), contentType: 'application/json' });
 
     expect(status).toBe(422);
     expect(body.msg).toBe('Invalid data.');

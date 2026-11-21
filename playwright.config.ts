@@ -27,6 +27,8 @@ export default defineConfig({
   // Số worker lấy từ WORKERS trong file .env. Để trống thì Playwright tự chọn một nửa số nhân CPU.
   // Gõ --workers=<số> ở dòng lệnh thì dòng lệnh thắng
   workers: env.workers,
+  // Nhiều reporter cùng lúc: list in ra terminal, html và allure-playwright ghi ra thư mục.
+  // Gõ --reporter=<tên> ở dòng lệnh thì cả danh sách này bị thay thế
   reporter: [
     ['list'],
     ['html', { open: 'never' }],

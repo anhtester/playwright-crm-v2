@@ -60,8 +60,9 @@ jobs:
         run: npx playwright test --project=setup --reporter=list
 
       # Chỉ test CRM. --no-deps: đã đăng nhập ở bước trên, và không chạy api-setup của Book
+      # Viết tests/crm- (không phải crm-): bộ lọc so với cả đường dẫn, mà thư mục repo trên runner (playwright-crm-v2) cũng chứa crm-
       - name: Chạy test CRM trên Chromium
-        run: npx playwright test crm- --project=chromium --no-deps
+        run: npx playwright test tests/crm- --project=chromium --no-deps
 
       # !cancelled(): test đỏ vẫn sinh và upload report. Chỉ bỏ qua khi lượt chạy bị huỷ.
       # hashFiles: chưa có allure-results (đăng nhập đỏ, bước test không chạy) thì không sinh

@@ -5,7 +5,7 @@ test.describe('Book demo - Menu và bảng dữ liệu qua Component Object', ()
     await userPage.goto();
     await userPage.expectLoaded();
     await expect(userPage.menu.links)
-      .toHaveText(['Dashboard', 'User', 'Book', 'Promotion', 'File', 'Database']);
+      .toHaveText(['Dashboard', 'User', 'Book', 'Category', 'Promotion', 'Contact']);
 
     await test.step('User -> Promotion', async () => {
       await userPage.menu.open('Promotion');
@@ -23,13 +23,13 @@ test.describe('Book demo - Menu và bảng dữ liệu qua Component Object', ()
     await promotionPage.expectLoaded();
 
     await expect(promotionPage.table.headers)
-      .toHaveText(['CODE', 'Name', 'Type', 'Active', 'Value', 'Start', 'End', 'Created']);
+      .toHaveText(['CODE', 'Name', 'Type', 'Status', 'Value', 'Start', 'End', 'Created']);
     await expect(promotionPage.table.rows).not.toHaveCount(0); // chờ dữ liệu về
 
     const startDates = await promotionPage.table.columnValues('Start');
     console.log(`Số dòng: ${startDates.length} | Ô Start đầu tiên: ${JSON.stringify(startDates[0])}`);
     for (const value of startDates) {
-      expect(value, 'Cột Start phải bắt đầu bằng ngày dạng "24 Th08 2026"').toMatch(/^\d{2} Th\d{2} \d{4}/);
+      expect(value, 'Cột Start phải bắt đầu bằng ngày dạng "11 Nov 2026"').toMatch(/^\d{2} [A-Z][a-z]{2} \d{4}/);
     }
   });
 

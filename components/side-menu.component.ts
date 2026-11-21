@@ -7,7 +7,9 @@ export class SideMenu {
 
   constructor(root: Locator) {
     this.root = root;
-    this.links = root.getByRole('link'); // tìm BÊN TRONG root, không tìm từ page
+    // Tìm BÊN TRONG root, không tìm từ page. Mỗi mục menu có data-testid "nav-item-<tên>",
+    // nhờ vậy không lẫn với link logo cũng nằm trong vùng menu
+    this.links = root.getByTestId(/^nav-item-/);
   }
 
   /** Một mục menu theo đúng chữ hiển thị */
