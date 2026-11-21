@@ -44,10 +44,11 @@ export default defineConfig({
     // Ngôn ngữ và múi giờ cố định: máy nào chạy cũng ra cùng định dạng ngày, số
     locale: 'en-US',
     timezoneId: 'Asia/Ho_Chi_Minh',
-    // Bằng chứng khi test lỗi: ảnh màn hình, video, trace
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-    trace: 'retain-on-failure',
+    // Bằng chứng khi test lỗi: ảnh màn hình, video, trace.
+    // Trên CI thì tắt: repo public ai cũng tải được report, mà trace có cookie phiên đăng nhập, video và ảnh có dữ liệu CRM
+    screenshot: process.env.CI ? 'off' : 'only-on-failure',
+    video: process.env.CI ? 'off' : 'retain-on-failure',
+    trace: process.env.CI ? 'off' : 'retain-on-failure',
   },
 
   projects: [

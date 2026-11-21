@@ -81,6 +81,8 @@
   KHÔNG `echo` secret, KHÔNG đưa `${{ github.event.* }}` thẳng vào `run:`.
 - Đăng nhập chạy ở bước riêng: `npx playwright test --project=setup --reporter=list` (không HTML Report,
   không Allure: các bước `Fill "..."` chứa mật khẩu). Bước test sau đó có `--no-deps`.
+- Repo public: `use` có `trace`, `video`, `screenshot` = `'off'` khi `process.env.CI` (trace của test đã đăng nhập
+  có header Cookie `sp_session`, video và ảnh có dữ liệu CRM của người khác). Test đỏ trên CI thì chạy lại trên máy để debug.
 - Project `setup`, `api-setup` có `trace: 'off'`, `screenshot: 'off'`, `video: 'off'`. KHÔNG upload `test-results/`.
   KHÔNG thêm cờ `--trace` vào lệnh trên CI: cờ dòng lệnh thắng cả `trace: 'off'` của project.
 - Bước test KHÔNG gõ `--reporter=...` (ghi đè `reporter` của config, mất HTML Report và Allure).
