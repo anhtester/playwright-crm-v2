@@ -27,12 +27,13 @@ test.describe('Book API - upload file bằng multipart/form-data', () => {
   });
 
   test('Upload file .txt bị từ chối 422', async ({ fileApi }) => {
-    // Book chỉ nhận ảnh, zip, pdf. Bản cũ lưu cả .txt (bug, từng đánh dấu test.fail). Bản mới đã sửa nên bỏ test.fail
+    // Book chỉ nhận ảnh, pdf và file nén, kiểm theo NỘI DUNG file chứ không chỉ theo đuôi
     const folder = `/${toSlug(`at-auto-upload-${uniqueSuffix()}`)}`;
 
     try {
       const uploaded = await fileApi.upload(TEXT_FILE, folder);
       expect(uploaded.status).toBe(422);
+      expect(uploaded.body.fields).toHaveProperty('files');
     } finally {
       // Server lỡ lưu file thì vẫn dọn. Server từ chối đúng thì thư mục không có, xoá trả 404, bỏ qua
       await fileApi.remove(folder);

@@ -2,7 +2,7 @@ import { test, expect } from '../fixtures';
 import mocks from '../data/book-list.mock.json';
 import { type BookList } from '../utils/book-data';
 
-/** Request danh sách sách mà trang Book Management gọi: GET /api/book?search=...&limit=36 */
+/** Request danh sách sách mà trang Book Management gọi: GET /api/book?search=...&limit=20 (lưới), ...&limit=3 (sách nổi bật) */
 const BOOK_LIST_API = '**/api/book?*';
 
 test.describe('Book UI - theo dõi và giả lập API danh sách sách', () => {
@@ -68,6 +68,10 @@ test.describe('Book UI - theo dõi và giả lập API danh sách sách', () => 
 
     await expect(bookListPage.heading).toBeVisible();
     await expect(bookListPage.noData).toBeVisible();
+    // Book báo mất kết nối bằng thông báo nổi. Hai request /api/book cùng hỏng nên có hai thông báo giống nhau
+    await expect(
+      bookListPage.notifications.getByText('Cannot connect to the server. Please try again.').first(),
+    ).toBeVisible();
   });
 
   test('Sửa một phần response thật: đổi tên cuốn đầu tiên', async ({ page, bookListPage }) => {
