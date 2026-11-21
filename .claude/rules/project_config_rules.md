@@ -80,6 +80,8 @@
   `schedule` (có `timezone: 'Asia/Ho_Chi_Minh'`, thiếu dòng này thì cron tính theo UTC), `workflow_dispatch`.
 - Cài bằng `npm ci` (KHÔNG `npm install`), Node 24 qua `actions/setup-node` có `cache: npm`.
   Ngay sau `npm ci` là bước `npm run typecheck`, trước khi cài trình duyệt.
+- Repo public: `use` có `trace`, `video`, `screenshot` = `'off'` khi `process.env.CI` (trace của test đã đăng nhập
+  có header Cookie `sp_session`, video và ảnh có dữ liệu CRM của người khác). Test đỏ trên CI thì chạy lại trên máy để debug.
   Chỉ cài trình duyệt CI dùng: `npx playwright install --with-deps chromium`.
 - Biến thường (`ENV_NAME`, `CRM_URL`, `BOOK_URL`, `WORKERS`) ghi ở `env:` của job. Tài khoản lấy từ
   `${{ secrets.TEN_BIEN }}`, tên trùng tên biến trong `.env.example`. KHÔNG viết giá trị mật khẩu trong YAML,
