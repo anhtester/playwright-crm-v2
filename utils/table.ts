@@ -1,8 +1,10 @@
 import { type Locator } from '@playwright/test';
 
-/** Các dòng dữ liệu của bảng: dòng có ô <td>, bỏ dòng tiêu đề (chỉ có <th>) */
+/** Các dòng dữ liệu của bảng: dòng có ô <td> (bỏ dòng tiêu đề chỉ có <th>) và có chữ (bỏ dòng đệm trống) */
 export function dataRows(table: Locator): Locator {
-  return table.getByRole('row').filter({ has: table.page().getByRole('cell') });
+  return table.getByRole('row')
+    .filter({ has: table.page().getByRole('cell') })
+    .filter({ hasText: /\S/ });
 }
 
 /** Vị trí (tính từ 0) của cột có tiêu đề cho trước. Không thấy cột thì báo lỗi rõ ràng */
